@@ -1,72 +1,105 @@
-# Gemini Chatbot
+# Gemini Chatbot 🤖
 
-A powerful AI chatbot application built with FastAPI and Google's Gemini AI, featuring document processing, vector database integration, and multi-platform messaging support.
+A powerful, extensible AI chatbot built with FastAPI and Google Gemini, featuring document-based question answering, vector search, persistent memory, and multi-platform messaging support.
 
-## 🚀 Features
+This project is designed for developers who want a production-ready AI assistant with advanced context management and tool integration.
 
-- **AI-Powered Conversations**: Integrated with Google Gemini AI for intelligent responses
-- **Document Processing**: Upload and process PDF documents with vector storage
-- **Session Management**: Persistent chat sessions with message history
-- **Vector Database**: ChromaDB integration for document similarity search
-- **Multi-Platform Support**: 
-  - Web interface
-  - Telegram bot integration
-  - WhatsApp integration
-- **Memory Management**: User memory with Mem0 integration
-- **Email Services**: SMTP email functionality
-- **MCP (Model Context Protocol)**: Advanced context management
+## ✨ Features
 
-## 🛠️ Tech Stack
+- **AI-Powered Conversations** using Google Gemini
+- **Document Q&A** with PDF upload and vector search
+- **Persistent Chat Sessions** with message history
+- **Vector Database Integration** using ChromaDB
+- **Multi-Platform Support**
+  - Web UI
+  - Telegram Bot
+  - WhatsApp Integration
+- **User Memory** powered by Mem0
+- **Email Sending** via SMTP
+- **Model Context Protocol (MCP)** for advanced tool orchestration
 
-- **Backend**: FastAPI, Python 3.12+
-- **AI/ML**: Google Gemini AI, OpenAI, LangChain
-- **Database**: MySQL, ChromaDB (Vector Database)
-- **Frontend**: HTML, CSS, JavaScript
-- **Messaging**: Telegram Bot API, WhatsApp API
-- **Memory**: Mem0 AI Memory
-- **Others**: SQLAlchemy, Pydantic, Uvicorn
+## 🧰 Tech Stack
+
+**Backend**
+- FastAPI
+- Python 3.12+
+- SQLAlchemy
+- Pydantic
+- Uvicorn
+
+**AI / ML**
+- Google Gemini
+- OpenAI (optional)
+- LangChain
+
+**Databases**
+- MySQL (relational data)
+- ChromaDB (vector storage)
+
+**Frontend**
+- HTML, CSS, JavaScript
+
+**Messaging**
+- Telegram Bot API
+- WhatsApp API
+
+**Memory**
+- Mem0 AI Memory
 
 ## 📋 Prerequisites
 
-- Python 3.12 or higher
+**Required**
+- Python 3.12+
 - MySQL database
 - Google Gemini API key
-- OpenAI API key (optional)
-- Telegram Bot Token (for Telegram integration)
+
+**Optional**
+- OpenAI API key
+- Telegram Bot credentials
 - Mem0 API key
+- WhatsApp API credentials
 
 ## ⚡ Quick Start
 
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 ```bash
 git clone <repository-url>
-cd "Gemini chatbot"
+cd gemini-chatbot
 ```
 
-### 2. Set Up Virtual Environment
+### 2️⃣ Create Virtual Environment
 ```bash
-# Create virtual environment
 python -m venv myenv
+```
 
-# Activate virtual environment
-# On Windows:
+**Activate it:**
+
+**Windows**
+```bash
 myenv\Scripts\activate
-# On macOS/Linux:
+```
+
+**macOS / Linux**
+```bash
 source myenv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3️⃣ Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Environment Configuration
-Create a `.env` file in the root directory with the following variables:
+### 4️⃣ Environment Configuration
+
+Create a `.env` file in the project root.
+
+⚠️ **Never commit your .env file**  
+Make sure `.env` is included in `.gitignore`.
 
 ```env
 # AI API Keys
-GEMINI_API_KEY=your_gemini_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key
+OPENAI_API_KEY=your_openai_api_key  # optional
 
 # Database Configuration
 DB_HOST=127.0.0.1
@@ -84,70 +117,77 @@ SMTP_PASSWORD=your_app_password
 # Memory Service
 MEM0_KEY=your_mem0_api_key
 
-# Telegram Bot (Optional)
+# Telegram (Optional)
 TELEGRAM_TOKEN=your_telegram_bot_token
 TELEGRAM_API_ID=your_telegram_api_id
 TELEGRAM_API_HASH=your_telegram_api_hash
 ```
 
-### 5. Database Setup
-```bash
-# Create MySQL database
-mysql -u root -p
+### 5️⃣ Database Setup
+```sql
 CREATE DATABASE mytest;
 ```
 
-### 6. Run the Application
+### 6️⃣ Run the Application
 ```bash
-# Navigate to src directory
 cd src
-
-# Start the server
 python main.py
 ```
 
-The application will be available at: `http://localhost:8888`
+**The server will start at:**
+```
+http://localhost:8888
+```
 
 ## 📖 Usage
 
-### Web Interface
-1. Open your browser and go to `http://localhost:8888`
-2. Click "Start New Chat" to begin a conversation
-3. Upload documents using the "Document" button
-4. Chat with the AI assistant
+### 🌐 Web Interface
 
-### API Endpoints
+1. Open `http://localhost:8888`
+2. Start a new chat session
+3. Upload PDF documents
+4. Ask questions based on uploaded documents
 
-#### Chat
-- `POST /ask/{session_id}` - Send a message to the chatbot
-- `GET /messages/{session_id}` - Get chat history
+### 🔌 API Endpoints
 
-#### Sessions
-- `GET /sessions/` - List all chat sessions
-- `POST /sessions/add/` - Create a new session
+**Chat**
+- `POST /ask/{session_id}` — Send a message
+- `GET /messages/{session_id}` — Retrieve chat history
 
-#### Documents
-- `POST /documents/upload-pdf/` - Upload PDF documents
-- `GET /documents/show` - List uploaded documents
-- `DELETE /documents/delete/{id}` - Delete a document
+**Sessions**
+- `GET /sessions/` — List sessions
+- `POST /sessions/add/` — Create new session
 
-#### Telegram
-- `POST /telegram/webhook` - Telegram webhook endpoint
+**Documents**
+- `POST /documents/upload-pdf/` — Upload PDF
+- `GET /documents/show` — List documents
+- `DELETE /documents/delete/{id}` — Delete document
 
-### Document Processing
-1. Click the "Document" button in the web interface
-2. Upload PDF files using the upload button
-3. Documents are automatically processed and stored in the vector database
-4. Ask questions about uploaded documents in chat
+**Telegram**
+- `POST /telegram/webhook` — Telegram webhook
+
+### 📄 Document Processing Workflow
+
+1. Upload PDF via web interface
+2. Text is extracted and embedded
+3. Stored in ChromaDB
+4. Ask natural language questions
+5. Relevant context is retrieved automatically
 
 ## 🔧 Configuration
 
-### AI Model Settings
-Edit `src/config/settings.py` to customize:
+### AI & System Settings
+
+**Edit:**
+```
+src/config/settings.py
+```
+
+**You can customize:**
 - Model parameters (temperature, max tokens)
-- Vector search settings
+- Vector search behavior
 - Memory configuration
-- Retry attempts and delays
+- Retry logic
 
 ### Database Models
 Database models are defined in `src/model/tableModel.py`
@@ -155,55 +195,92 @@ Database models are defined in `src/model/tableModel.py`
 ## 📁 Project Structure
 
 ```
-Gemini chatbot/
+gemini-chatbot/
 ├── src/
-│   ├── config/          # Configuration files
-│   ├── controllers/     # Request controllers
-│   ├── model/          # Database models
-│   ├── page/           # Frontend files
-│   ├── routes/         # API routes
-│   ├── services/       # Business logic
-│   ├── tools/          # Tool management
-│   ├── utils/          # Utility functions
-│   ├── validations/    # Data validation schemas
-│   └── main.py         # Application entry point
-├── chroma_vectors/     # Vector database storage
-├── myenv/             # Virtual environment
-├── requirements.txt   # Python dependencies
-├── pyproject.toml     # Project configuration
-└── .env              # Environment variablesRemove-Item -Recurse -Force .git
+│   ├── config/          # Configuration
+│   ├── controllers/     # Request handlers
+│   ├── model/           # Database models
+│   ├── page/            # Frontend files
+│   ├── routes/          # API routes
+│   ├── services/        # Business logic
+│   ├── tools/           # Tool handlers
+│   ├── utils/           # Utilities
+│   ├── validations/     # Schemas
+│   └── main.py          # App entry point
+├── chroma_vectors/      # Vector database
+├── requirements.txt
+├── pyproject.toml
+├── .env                 # Environment variables
+└── README.md
 ```
 
-## 🐛 Known Issues
+## 🧠 Model Context Protocol (MCP)
 
-- **Vector Database Refresh**: Page refresh doesn't update vector database (mentioned in original README)
-- Ensure proper environment variable configuration for all features
+This project implements MCP for dynamic tool discovery and execution.
+
+### Built-in Tools
+
+- **Email Tool** (SMTP)
+- **Weather Tool**
+- **PDF Q&A Tool**
+
+### External MCP Servers
+
+- **Database MCP**
+- **YouTube MCP**
+- **WhatsApp MCP**
+- **Telegram MCP**
+
+### MCP Server Configuration
+
+```json
+{
+  "mcpServers": {
+    "example-server": {
+      "command": "python",
+      "args": ["path/to/server.py"],
+      "is_active": true
+    }
+  }
+}
+```
+
+### Running MCP
+
+```bash
+python mcp_server.py
+python mcp_client.py
+```
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+3. Commit changes
+4. Push to your fork
 5. Open a Pull Request
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Licensed under the MIT License.
 
-## 🆘 Support
+## 🆘 Support & Troubleshooting
 
-If you encounter any issues:
-1. Check the console logs for error messages
-2. Verify all environment variables are set correctly
-3. Ensure all required services (MySQL, APIs) are accessible
-4. Check the `requirements.txt` for dependency conflicts
+If you face issues:
 
-## 🔮 Future Enhancements
+- Check application logs
+- Verify `.env` values
+- Ensure MySQL is running
+- Confirm API keys are valid
+- Check dependency versions
 
-- [ ] Fix vector database refresh issue
-- [ ] Add user authentication
-- [ ] Implement file type support beyond PDF
-- [ ] Add conversation export functionality
-- [ ] Enhance mobile responsiveness
-- [ ] Add voice message support
+## 🔮 Roadmap
+
+- [ ] User authentication
+- [ ] Support more file formats
+- [ ] Chat export (PDF / TXT)
+- [ ] Mobile-friendly UI
+- [ ] Voice input & output
